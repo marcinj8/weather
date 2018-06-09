@@ -1,0 +1,48 @@
+@media only screen and (max-width: 600px) {
+    .navbar__title {
+        margin: 5px auto;
+    }
+    .weatherBox__form {
+        width: 95%;
+    }
+    .weatherBox__showInfo {
+        width: 90%;
+    }
+    .weatherBox__showInfo--data {
+        width: 90%;
+        text-align: right;
+    }
+    .weatherBox__showInfo--box {
+        h3 {
+            font-size: 0.9em;
+        }
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .navbar__title {
+        margin: 0 auto;
+        h1 {
+            font-size: 1.5em;
+        }
+        h2 {
+            font-size: 1.1em;
+            margin: 5px;
+        }
+    }
+    .weatherBox__form {
+        width: 95%;
+    }
+    .weatherBox__showInfo {
+        width: 90%;
+    }
+    .weatherBox__showInfo--data {
+        width: 90%;
+        text-align: right;
+    }
+    .weatherBox__showInfo--box {
+        h3 {
+            font-size: 0.9em;
+        }
+    }
+}

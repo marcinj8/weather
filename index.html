@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width,initial-scale=1.0'>
+    <link href='scss/main.css' rel='stylesheet'>
+  </head>
+  <body>
+    <div class='container'>
+      <div class='navbar'>
+        <div class='navbar__title'>
+          <div class='navbar__title--flex'>
+            <img class='navbar__img' src='https://image.flaticon.com/icons/svg/929/929078.svg'  alt='Sun free icon' title='Sun free icon'>
+            <h1>
+              Weather app
+            </h1>
+
+          </div>
+          <h2>
+            Check weather now
+          </h2>
+        </div>
+
+      </div>
+      <div class='weatherBox'>
+        <div class='weatherBox__form'>
+          <label for='city'>Write City name</label>
+          <input class='weatherBox__input' name='city' id='city' placeholder='city' type='text'>
+          <button class='weatherBox__btn' id='getData'>
+            Check weather
+          </button>
+        </div>
+        <div class='weatherBox__showInfo'>
+
+          </div>
+      </div>
+      <!-- <div id="openweathermap-widget-15"></div> -->
+
+      <footer class='footer'>
+
+      </footer>
+    </div>
+
+    <script src='jquery-3.3.1.min.js'></script>
+    <script src='js/getData.js'></script>    
+    <script src='js/main.js'></script>
+
+  </body>
+</html>
