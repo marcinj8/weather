@@ -4,13 +4,14 @@ let city = "";
 let currentWeather = {};
 
 class Weather {
-    constructor(city, minT, maxT, meanT, sky, wind) {
+    constructor(city, minT, maxT, meanT, sky, wind, backgroundUrl) {
         this.city = city;
         this.minT = minT;
         this.maxT = maxT;
         this.meanT = meanT;
         this.sky = sky;
         this.wind = wind;
+        this.backgroundUrl = backgroundUrl;
     }
     showMessage() {
         $('.weatherBox__showInfo').html('<div class="weatherBox__showInfo--box"> <h3>Currently weather in ' + this.city + ' : </h3></div>')
@@ -29,19 +30,25 @@ class Weather {
     }
 
     showMode() {
-        this.showMessage();
-        this.showMin();
-        this.showMax();
-        this.showMean();
-        this.showMain();
-        $('.weatherBox__showInfo--box').append('<button class="weatherBox__btn" onClick="clear()">Close</button>')
+        $('.weatherBox__showInfo').slideUp('fast');
+        setTimeout(() => {
+            this.showMessage();
+            this.showMin();
+            this.showMax();
+            this.showMean();
+            this.showMain();
+            $('.weatherBox__showInfo').slideDown('normal');
+            $('.weatherBox__showInfo--box').append('<button class="weatherBox__btn" onClick="clear()">Close</button>')
+            $('.weatherBox__showInfo--box').css('background', 'url(https://openweathermap.org/img/w/' + this.backgroundUrl + '.png)no-repeat 5%');
+
+        }, 500)
 
         // Object.keys(this).forEach(function (each) {
-            // console.log(each)
-            // console.log(typeof this.city)
-            // if (typeof this[each] === "function") {
-            // this[each]();
-            // }
+        // console.log(each)
+        // console.log(typeof this.city)
+        // if (typeof this[each] === "function") {
+        // this[each]();
+        // }
         // });
 
     }
@@ -56,17 +63,13 @@ function loadData() {
         type: 'get',
         dataType: 'json',
         success: function (response) {
-            currentWeather = new Weather(response.name, response.main.temp_min, response.main.temp_max, response.main.temp, response.weather[0].description, response.wind.speed)
-            currentWeather.showMode();
 
-            $('.weatherBox__showInfo').slideUp().slideDown('slow');
-            let backgroundUrl = 'https://openweathermap.org/img/w/' + response.weather[0].icon + '.png';
-            $('.weatherBox__showInfo--box').css('background', 'url(' + backgroundUrl + ')no-repeat 5%');
-            console.log(response)
+            currentWeather = new Weather(response.name, response.main.temp_min, response.main.temp_max, response.main.temp, response.weather[0].description, response.wind.speed, response.weather[0].icon)
+            currentWeather.showMode();
 
         },
         error: function () {
-            alert('Write coorect english city name')
+            error();
         }
     })
 };
@@ -74,10 +77,15 @@ function loadData() {
 function clear() {
     $('.weatherBox__showInfo').html('')
 }
+function error() {
+    $('.weatherBox__showInfo').html('<div class="weatherBox__showInfo--box"> <h3>Write corect english city name</h3></div>').slideDown('slow')
+    $('#getData').html('Try again');
+
+}
 
 $('#getData').on('click', () => {
     loadData();
-    $('#getData').html('Next city')
+    $('#getData').html('Next city');
 });
 
 $('.weatherBox__showInfo').last().on('click', () => {
