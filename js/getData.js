@@ -43,14 +43,6 @@ class Weather {
 
         }, 500)
 
-        // Object.keys(this).forEach(function (each) {
-        // console.log(each)
-        // console.log(typeof this.city)
-        // if (typeof this[each] === "function") {
-        // this[each]();
-        // }
-        // });
-
     }
 };
 
