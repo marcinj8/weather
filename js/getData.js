@@ -4,12 +4,13 @@ let inputCity = $('#city');
 let currentWeather = {};
 
 class Weather {
-    constructor(city, minT, maxT, meanT, sky) {
+    constructor(city, minT, maxT, meanT, sky, wind) {
         this.city = city;
         this.minT = minT;
         this.maxT = maxT;
         this.meanT = meanT;
         this.sky = sky;
+        this.wind = wind;
     }
     showMessage() {
         $('.weatherBox__showInfo').html('<div class="weatherBox__showInfo--box"> <h3>Currently weather in ' + this.city + ' : </h3></div>')
@@ -24,7 +25,7 @@ class Weather {
         $('.weatherBox__showInfo--box').append('<div class="weatherBox__showInfo--data"> Average is ' + this.meanT + '°C</div>')
     }
     showMain() {
-        $('.weatherBox__showInfo--box').append('<div class="weatherBox__showInfo--data"> There is ' + this.sky + '.</div>')
+        $('.weatherBox__showInfo--box').append('<div class="weatherBox__showInfo--data"> There is ' + this.sky + ', wind: ' + this.wind + 'm/s.</div>')
     }
 
     showMode() {
@@ -33,14 +34,16 @@ class Weather {
         this.showMax();
         this.showMean();
         this.showMain();
+        $('.weatherBox__showInfo--box').append('<button class="weatherBox__btn" onClick="clear()">Close</button>')
+        
 
 
         // Object.keys(this).forEach(function (each) {
-        //     console.log(typeof this.city)
         //     console.log(each)
-        //     if (typeof this[each] === "function") {
-        //         this[each]();
-        //     }
+            // console.log(typeof this.city)
+            // if (typeof this[each] === "function") {
+                // this[each]();
+            // }
 
         // });
 
@@ -56,9 +59,10 @@ function loadData() {
         type: 'get',
         dataType: 'json',
         success: function (response) {
-            currentWeather = new Weather(response.name, response.main.temp_min, response.main.temp_max, response.main.temp, response.weather[0].description)
+            currentWeather = new Weather(response.name, response.main.temp_min, response.main.temp_max, response.main.temp, response.weather[0].description, response.wind.speed)
             currentWeather.showMode();
-            $('.weatherBox__showInfo').slideDown('slow');
+            
+            $('.weatherBox__showInfo').slideUp().slideDown('slow');
             let backgroundUrl = 'https://openweathermap.org/img/w/' + response.weather[0].icon + '.png';
             $('.weatherBox__showInfo--box').css('background', 'url(' + backgroundUrl + ')no-repeat 5%');
 
@@ -71,21 +75,16 @@ function loadData() {
     })
 };
 
+function clear() {
+    console.log('clear')
+    $('.weatherBox__showInfo').html('')
+}
 
 
+$('#getData').on('click', () => loadData());
 
-$('#getData').on('click', () => {
-    loadData();
-    // $('.weatherBox__showInfo').slideDown('slow');
+$('.weatherBox__showInfo').last().on('click', () => {
+    console.log('click')
+    $('.weatherBox__showInfo').slideUp('slow');
+    clear();
 });
-
-
-
-
-// widget
-// window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = []; 
-// window.myWidgetParam.push({ id: 15, cityid: '3093133', appid: 'f6ca47399124cfa87c537ac81d7517a2', units: 'metric', containerid: 'openweathermap-widget-15', }); 
-// (function () { var script = document.createElement('script'); 
-// script.async = true; script.charset = "utf-8"; 
-// script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js"; 
-// var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s); })();
