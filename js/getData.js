@@ -1,6 +1,6 @@
 const APIKEY = 'f6ca47399124cfa87c537ac81d7517a2';
-let city = "";
 let inputCity = $('#city');
+let city = "";
 let currentWeather = {};
 
 class Weather {
@@ -35,16 +35,13 @@ class Weather {
         this.showMean();
         this.showMain();
         $('.weatherBox__showInfo--box').append('<button class="weatherBox__btn" onClick="clear()">Close</button>')
-        
-
 
         // Object.keys(this).forEach(function (each) {
-        //     console.log(each)
+            // console.log(each)
             // console.log(typeof this.city)
             // if (typeof this[each] === "function") {
-                // this[each]();
+            // this[each]();
             // }
-
         // });
 
     }
@@ -61,11 +58,10 @@ function loadData() {
         success: function (response) {
             currentWeather = new Weather(response.name, response.main.temp_min, response.main.temp_max, response.main.temp, response.weather[0].description, response.wind.speed)
             currentWeather.showMode();
-            
+
             $('.weatherBox__showInfo').slideUp().slideDown('slow');
             let backgroundUrl = 'https://openweathermap.org/img/w/' + response.weather[0].icon + '.png';
             $('.weatherBox__showInfo--box').css('background', 'url(' + backgroundUrl + ')no-repeat 5%');
-
             console.log(response)
 
         },
@@ -76,15 +72,15 @@ function loadData() {
 };
 
 function clear() {
-    console.log('clear')
     $('.weatherBox__showInfo').html('')
 }
 
-
-$('#getData').on('click', () => loadData());
+$('#getData').on('click', () => {
+    loadData();
+    $('#getData').html('Next city')
+});
 
 $('.weatherBox__showInfo').last().on('click', () => {
-    console.log('click')
     $('.weatherBox__showInfo').slideUp('slow');
     clear();
 });

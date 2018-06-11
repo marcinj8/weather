@@ -6,9 +6,10 @@
         width: 95%;
     }
     .weatherBox__showInfo {
-        width: 90%;
+        width: 95%;
     }
     .weatherBox__showInfo--data {
+        font-size: 0.9em;
         width: 90%;
         text-align: right;
     }
@@ -34,11 +35,13 @@
         width: 95%;
     }
     .weatherBox__showInfo {
-        width: 90%;
+        width: 95%;
     }
     .weatherBox__showInfo--data {
+        font-size: 0.8em;
         width: 90%;
         text-align: right;
+        margin: 5px;
     }
     .weatherBox__showInfo--box {
         h3 {
